@@ -3,7 +3,7 @@ name = "sqlc-gen-asyncpg-e2e"
 version = "0.0.0"
 requires-python = ">=3.13"
 dependencies = [
-  "asyncpg>=0.30",
+  "asyncpg>=0.32.0",
   "msgspec>=0.22.0",
   "pytest>=9.2.0",
   "pytest-asyncio>=0.24",
