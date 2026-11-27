@@ -137,3 +137,7 @@ just test     # everything
 ```
 
 Generated code in `e2e/cases` is committed; CI fails if it is stale.
+
+## License
+
+[MIT](LICENSE)
