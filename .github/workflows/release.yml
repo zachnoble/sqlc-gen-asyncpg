@@ -1,0 +1,59 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+env:
+  GO_VERSION: "1.26"
+
+jobs:
+  release:
+    name: Build wasm and publish release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-go@v7
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          check-latest: true
+
+      - name: Check tag matches gen.Version
+        run: |
+          want=$(sed -n 's/^const Version = "\(.*\)"$/\1/p' internal/gen/render.go)
+          if [ "$want" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::tag $GITHUB_REF_NAME does not match internal/gen/render.go Version $want"
+            exit 1
+          fi
+
+      - name: Test
+        run: go test ./...
+
+      - name: Build wasm
+        run: |
+          GOOS=wasip1 GOARCH=wasm go build -trimpath -o bin/sqlc-gen-asyncpg.wasm .
+          cd bin && sha256sum sqlc-gen-asyncpg.wasm | tee sqlc-gen-asyncpg.wasm.sha256
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sha=$(cut -d' ' -f1 bin/sqlc-gen-asyncpg.wasm.sha256)
+          url="https://github.com/${GITHUB_REPOSITORY}/releases/download/${GITHUB_REF_NAME}/sqlc-gen-asyncpg.wasm"
+          cat > notes.md <<EOF
+          \`\`\`yaml
+          version: "2"
+          plugins:
+            - name: py
+              wasm:
+                url: ${url}
+                sha256: ${sha}
+          \`\`\`
+          EOF
+          gh release create "$GITHUB_REF_NAME" \
+            bin/sqlc-gen-asyncpg.wasm bin/sqlc-gen-asyncpg.wasm.sha256 \
+            --title "$GITHUB_REF_NAME" --notes-file notes.md --verify-tag
