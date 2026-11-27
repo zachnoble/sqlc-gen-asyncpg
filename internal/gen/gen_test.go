@@ -146,7 +146,9 @@ func TestStringLiterals(t *testing.T) {
 		src.WriteString(")\n")
 	}
 	src.WriteString("sys.stdout.write(json.dumps(out))\n")
-	cmd := exec.Command(py, "-I", "-c", src.String())
+
+	cmd := exec.Command(py, "-I", "-")
+	cmd.Stdin = strings.NewReader(src.String())
 	outb, err := cmd.Output()
 	if err != nil {
 		t.Fatalf("python failed: %v", err)
