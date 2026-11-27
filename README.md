@@ -6,17 +6,16 @@
 
 ## Usage
 
-```sh
-just wasm   # builds bin/sqlc-gen-asyncpg.wasm, prints sha256
-```
+Each [release](https://github.com/zachnoble/sqlc-gen-asyncpg/releases) lists
+the `url` and `sha256` to use:
 
 ```yaml
 version: "2"
 plugins:
   - name: py
     wasm:
-      url: file:///path/to/sqlc-gen-asyncpg.wasm
-      sha256: <sha256>
+      url: https://github.com/zachnoble/sqlc-gen-asyncpg/releases/download/v0.1.0/sqlc-gen-asyncpg.wasm
+      sha256: <sha256 from the release notes>
 sql:
   - engine: postgresql
     schema: schema.sql
@@ -27,6 +26,8 @@ sql:
         options:
           emit_interface: true
 ```
+
+The generated code needs `asyncpg` and `msgspec` at runtime.
 
 ```python
 from app.db import db, query
@@ -134,6 +135,11 @@ just check    # tidy, vet, golangci-lint, govulncheck, modernize, build, test
 just e2e      # generate, ty + pyrefly, pytest on 3.13 and 3.14 (Docker, sqlc, uv)
 just corpus   # sqlc's PostgreSQL endtoend corpus
 just test     # everything
+just wasm     # bin/sqlc-gen-asyncpg.wasm (use with url: file:///abs/path)
 ```
+
+To release, set `Version` in `internal/gen/render.go`, commit and push, then run
+`just release vX.Y.Z`. That pushes the tag, and the Release workflow builds the
+wasm and publishes it with its sha256.
 
 Generated code in `e2e/cases` is committed; CI fails if it is stale.

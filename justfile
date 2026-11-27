@@ -45,5 +45,12 @@ corpus: postgres
 
 test: check e2e corpus
 
+# bump internal/gen/render.go Version, commit, then: just release v0.1.0
+release version:
+    @grep -q 'const Version = "{{version}}"' internal/gen/render.go || (echo "internal/gen/render.go Version is not {{version}}" && exit 1)
+    @git diff --quiet HEAD || (echo "working tree is dirty" && exit 1)
+    git tag {{version}}
+    git push origin {{version}}
+
 clean:
     rm -rf bin e2e/.corpus e2e/cases/*/sqlc.generated.json
