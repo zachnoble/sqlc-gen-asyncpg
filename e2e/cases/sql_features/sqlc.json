@@ -1,0 +1,25 @@
+{
+  "version": "2",
+  "sql": [
+    {
+      "engine": "postgresql",
+      "schema": "schema.sql",
+      "queries": "queries",
+      "codegen": [
+        {
+          "plugin": "py",
+          "out": "gen",
+          "options": {
+            "emit_interface": true,
+            "overrides": [
+              {
+                "column": "order_totals.total",
+                "py_type": "decimal.Decimal"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

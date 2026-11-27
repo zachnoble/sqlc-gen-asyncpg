@@ -1,0 +1,97 @@
+{
+  "version": "2",
+  "options": {
+    "py": {
+      "overrides": [
+        {
+          "db_type": "email",
+          "py_type": {
+            "import": "cases.overrides.custom_types",
+            "type": "Email"
+          }
+        },
+        {
+          "db_type": "email",
+          "nullable": true,
+          "py_type": {
+            "import": "cases.overrides.custom_types",
+            "type": "Email"
+          }
+        },
+        {
+          "db_type": "text",
+          "py_type": "int",
+          "engine": "mysql"
+        }
+      ],
+      "rename": {
+        "created_by": "author"
+      }
+    }
+  },
+  "sql": [
+    {
+      "engine": "postgresql",
+      "schema": "schema.sql",
+      "queries": "query.sql",
+      "codegen": [
+        {
+          "plugin": "py",
+          "out": "gen",
+          "options": {
+            "overrides": [
+              {
+                "column": "users.created_by",
+                "py_type": "str"
+              },
+              {
+                "db_type": "jsonb",
+                "py_type": "dict[str, typing.Any]"
+              },
+              {
+                "db_type": "jsonb",
+                "nullable": true,
+                "py_type": "dict[str, typing.Any]"
+              },
+              {
+                "db_type": "text",
+                "py_type": {
+                  "import": "cases.overrides.custom_types",
+                  "type": "Label"
+                }
+              },
+              {
+                "column": "users.created_*",
+                "py_type": "datetime.datetime"
+              },
+              {
+                "column": "shop.items.price",
+                "py_type": "float"
+              },
+              {
+                "column": "*.amount",
+                "py_type": "decimal.Decimal"
+              }
+            ]
+          }
+        },
+        {
+          "plugin": "py",
+          "out": "gen_order",
+          "options": {
+            "overrides": [
+              {
+                "column": "users.created_*",
+                "py_type": "datetime.datetime"
+              },
+              {
+                "column": "users.created_by",
+                "py_type": "str"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

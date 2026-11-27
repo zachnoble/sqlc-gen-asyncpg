@@ -1,0 +1,23 @@
+{
+  "version": "2",
+  "sql": [
+    {
+      "engine": "postgresql",
+      "schema": "schema.sql",
+      "queries": [
+        "query.sql"
+      ],
+      "codegen": [
+        {
+          "plugin": "py",
+          "out": "gen",
+          "options": {
+            "rename": {
+              "name": "class"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

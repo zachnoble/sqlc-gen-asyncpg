@@ -1,0 +1,30 @@
+{
+  "version": "2",
+  "sql": [
+    {
+      "engine": "postgresql",
+      "schema": "schema.sql",
+      "queries": "../sql_features/queries",
+      "database": {
+        "uri": "${E2E_ANALYZER_DSN}"
+      },
+      "analyzer": {
+        "database": true
+      },
+      "codegen": [
+        {
+          "plugin": "py",
+          "out": "gen",
+          "options": {
+            "overrides": [
+              {
+                "column": "order_totals.total",
+                "py_type": "decimal.Decimal"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

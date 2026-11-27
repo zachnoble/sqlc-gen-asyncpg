@@ -1,0 +1,7 @@
+/bin/
+e2e/.venv*/
+e2e/.corpus/
+e2e/cases/*/sqlc.generated.json
+__pycache__/
+.mypy_cache/
+.ruff_cache/

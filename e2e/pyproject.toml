@@ -1,0 +1,35 @@
+[project]
+name = "sqlc-gen-asyncpg-e2e"
+version = "0.0.0"
+requires-python = ">=3.13"
+dependencies = [
+  "asyncpg>=0.30",
+  "msgspec>=0.19",
+  "pytest>=8",
+  "pytest-asyncio>=0.24",
+  "pyyaml>=6",
+  "ty>=0.0.112",
+  "pyrefly>=1.5",
+  "asyncpg-stubs>=0.30",
+  "ruff>=0.8",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+asyncio_default_test_loop_scope = "session"
+addopts = "--import-mode=importlib -p no:cacheprovider"
+pythonpath = ["."]
+
+# ty has no "strict" switch; promote every rule to an error instead.
+[tool.ty.environment]
+python-version = "3.13"
+
+[tool.ty.rules]
+all = "error"
+
+[tool.pyrefly]
+preset = "strict"
+python-version = "3.13"
+search-path = ["."]
+project-excludes = ["**/.venv*/**", ".corpus/**"]
