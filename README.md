@@ -132,7 +132,7 @@ value must change.
 
 ```sh
 just check    # tidy, vet, golangci-lint, govulncheck, modernize, build, test
-just e2e      # generate, ty + pyrefly, pytest on 3.13 and 3.14 (Docker, sqlc, uv)
+just e2e      # generate, ty + pyrefly, pytest on 3.13, 3.14 and 3.15 (Docker, sqlc, uv)
 just corpus   # sqlc's PostgreSQL endtoend corpus
 just test     # everything
 just wasm     # bin/sqlc-gen-asyncpg.wasm (use with url: file:///abs/path)

@@ -207,7 +207,7 @@ def main() -> int:
     )
     env = {k: v for k, v in os.environ.items() if k != "VIRTUAL_ENV"}
     type_ok = True
-    for version in ("3.13", "3.14"):
+    for version in ("3.13", "3.14", "3.15"):
         py = venv_python(version)
         r = subprocess.run([str(py.parent / "ty"), "check", "--python", str(py.parent.parent), "--python-version", version,
                             "--error-on-warning", "--output-format", "concise", "."], cwd=pkgs, capture_output=True, text=True, env=env)

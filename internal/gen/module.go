@@ -22,7 +22,7 @@ type pyModule struct {
 	// classScope holds every name bound inside a class body of this module
 	// (struct fields, methods, enum members). Annotation roots that collide
 	// with one of them are referenced through a module level alias, because
-	// on Python 3.14 (PEP 649) annotations are resolved in the class
+	// on Python 3.14+ (PEP 649) annotations are resolved in the class
 	// namespace where msgspec field descriptors shadow module globals.
 	classScope map[string]bool
 	aliases    map[string]string

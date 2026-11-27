@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """E2E driver: build wasm, generate cases, type check, run pytest.
 
-Usage: python3 run.py [-k CASE] [--pythons 3.13,3.14] [--no-typecheck] [-- PYTEST_ARGS]
+Usage: python3 run.py [-k CASE] [--pythons 3.13,3.14,3.15] [--no-typecheck] [-- PYTEST_ARGS]
 """
 
 from __future__ import annotations
@@ -140,7 +140,7 @@ def typecheck(paths: list[str], versions: list[str]) -> bool:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("-k", default="", help="only cases whose name contains this")
-    ap.add_argument("--pythons", default="3.13,3.14")
+    ap.add_argument("--pythons", default="3.13,3.14,3.15")
     ap.add_argument("--no-typecheck", action="store_true")
     ap.add_argument("pytest_args", nargs="*")
     args = ap.parse_args()
