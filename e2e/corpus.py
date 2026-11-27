@@ -16,6 +16,7 @@ import pathlib
 import shutil
 import subprocess
 import sys
+from concurrent.futures import ThreadPoolExecutor
 
 E2E = pathlib.Path(__file__).resolve().parent
 ROOT = E2E.parent
@@ -167,9 +168,16 @@ def main() -> int:
         (dst / "sqlc.py.json").write_text(json.dumps(conv, indent=2))
         cases.append((name, dst, conv))
 
+    def generate(case: tuple[str, pathlib.Path, dict]) -> subprocess.CompletedProcess[str]:
+        return subprocess.run([SQLC, "generate", "-f", "sqlc.py.json"], cwd=case[1], capture_output=True, text=True)
+
+    # Each case is independent; sqlc generate is dominated by wasm startup, so fan out.
+    # Run the first case alone so sqlc's plugin cache is populated before concurrent use.
+    results = [generate(cases[0])] if cases else []
+    with ThreadPoolExecutor(max_workers=os.cpu_count() or 4) as pool:
+        results += pool.map(generate, cases[1:])
     gen_fail, ok = [], []
-    for name, dst, conv in cases:
-        r = subprocess.run([SQLC, "generate", "-f", "sqlc.py.json"], cwd=dst, capture_output=True, text=True)
+    for (name, dst, conv), r in zip(cases, results):
         if r.returncode != 0:
             gen_fail.append((name, r.stderr.strip()))
         else:
