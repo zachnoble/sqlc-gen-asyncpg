@@ -1,0 +1,1 @@
+rename "t" -> "1abc" is not a valid Python identifier

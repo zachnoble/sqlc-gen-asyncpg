@@ -1,0 +1,8 @@
+{
+  "c_case_value_param_postgresql": "text = boolean",
+  "c_params_placeholder_in_left_expr_postgresql": "integer = varchar",
+  "c_unknown_func_pgx_v4": "undefined function",
+  "c_unknown_func_pgx_v5": "undefined function",
+  "c_unknown_func_stdlib": "undefined function",
+  "c_strict_function_checks_postgresql": "undefined function"
+}

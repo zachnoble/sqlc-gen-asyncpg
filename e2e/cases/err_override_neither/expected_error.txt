@@ -1,0 +1,1 @@
+must specify one of either `column` or `db_type`

@@ -1,0 +1,198 @@
+{
+  "version": "2",
+  "sql": [
+    {
+      "engine": "postgresql",
+      "schema": "schema.sql",
+      "queries": "query.sql",
+      "codegen": [
+        {
+          "plugin": "py",
+          "out": "gen_default",
+          "options": {}
+        },
+        {
+          "plugin": "py",
+          "out": "gen_exported",
+          "options": {
+            "emit_exported_queries": true
+          }
+        },
+        {
+          "plugin": "py",
+          "out": "gen_limit0",
+          "options": {
+            "query_parameter_limit": 0
+          }
+        },
+        {
+          "plugin": "py",
+          "out": "gen_limit4",
+          "options": {
+            "query_parameter_limit": 4
+          }
+        },
+        {
+          "plugin": "py",
+          "out": "gen_wrap",
+          "options": {
+            "wrap_errors": true
+          }
+        },
+        {
+          "plugin": "py",
+          "out": "gen_json_camel",
+          "options": {
+            "emit_json_tags": true,
+            "json_tags_case_style": "camel"
+          }
+        },
+        {
+          "plugin": "py",
+          "out": "gen_json_camel_id",
+          "options": {
+            "emit_json_tags": true,
+            "json_tags_case_style": "camel",
+            "json_tags_id_uppercase": true
+          }
+        },
+        {
+          "plugin": "py",
+          "out": "gen_json_pascal",
+          "options": {
+            "emit_json_tags": true,
+            "json_tags_case_style": "pascal"
+          }
+        },
+        {
+          "plugin": "py",
+          "out": "gen_json_snake",
+          "options": {
+            "emit_json_tags": true,
+            "json_tags_case_style": "snake"
+          }
+        },
+        {
+          "plugin": "py",
+          "out": "gen_json_none",
+          "options": {
+            "emit_json_tags": true,
+            "json_tags_case_style": "none"
+          }
+        },
+        {
+          "plugin": "py",
+          "out": "gen_enum_methods",
+          "options": {
+            "emit_enum_valid_method": true,
+            "emit_all_enum_values": true
+          }
+        },
+        {
+          "plugin": "py",
+          "out": "gen_sql_comment",
+          "options": {
+            "emit_sql_as_comment": true
+          }
+        },
+        {
+          "plugin": "py",
+          "out": "gen_omit_version",
+          "options": {
+            "omit_sqlc_version": true
+          }
+        },
+        {
+          "plugin": "py",
+          "out": "gen_omit_unused",
+          "options": {
+            "omit_unused_structs": true
+          }
+        },
+        {
+          "plugin": "py",
+          "out": "gen_filenames",
+          "options": {
+            "output_db_file_name": "database.py",
+            "output_models_file_name": "tables",
+            "output_batch_file_name": "batching.py",
+            "output_copyfrom_file_name": "bulk.py",
+            "output_files_suffix": "_q"
+          }
+        },
+        {
+          "plugin": "py",
+          "out": "gen_struct_opts",
+          "options": {
+            "msgspec_struct_options": {
+              "frozen": true,
+              "kw_only": true,
+              "forbid_unknown_fields": true
+            }
+          }
+        },
+        {
+          "plugin": "py",
+          "out": "gen_array_like",
+          "options": {
+            "msgspec_struct_options": {
+              "array_like": true
+            }
+          }
+        },
+        {
+          "plugin": "py",
+          "out": "gen_rename",
+          "options": {
+            "rename": {
+              "user_name": "login",
+              "status": "State",
+              "email_addr": "email",
+              "user": "Account"
+            },
+            "initialisms": [
+              "id",
+              "url"
+            ]
+          }
+        },
+        {
+          "plugin": "py",
+          "out": "gen_exact",
+          "options": {
+            "emit_exact_table_names": true
+          }
+        },
+        {
+          "plugin": "py",
+          "out": "gen_inflect_exclude",
+          "options": {
+            "inflection_exclude_table_names": [
+              "people",
+              "USERS"
+            ]
+          }
+        },
+        {
+          "plugin": "py",
+          "out": "gen_everything",
+          "options": {
+            "emit_exported_queries": true,
+            "wrap_errors": true,
+            "emit_json_tags": true,
+            "json_tags_case_style": "camel",
+            "emit_enum_valid_method": true,
+            "emit_all_enum_values": true,
+            "emit_sql_as_comment": true,
+            "omit_unused_structs": true,
+            "query_parameter_limit": 3,
+            "emit_empty_slices": true,
+            "msgspec_struct_options": {
+              "frozen": true
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

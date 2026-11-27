@@ -1,0 +1,14 @@
+{
+  "version": "2",
+  "sql": [
+    {
+      "engine": "postgresql",
+      "schema": "schema.sql",
+      "queries": "query.sql",
+      "codegen": [
+        {"plugin": "py", "out": "gen", "options": {"query_parameter_limit": 20}},
+        {"plugin": "py", "out": "gen_json", "options": {"emit_json_tags": true, "json_tags_case_style": "camel"}}
+      ]
+    }
+  ]
+}

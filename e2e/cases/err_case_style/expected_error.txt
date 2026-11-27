@@ -1,0 +1,1 @@
+unsupported json_tags_case_style "kebab"

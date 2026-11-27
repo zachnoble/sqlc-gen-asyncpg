@@ -1,0 +1,29 @@
+{
+  "version": "2",
+  "sql": [
+    {
+      "engine": "postgresql",
+      "schema": "schema.sql",
+      "queries": [
+        "query.sql"
+      ],
+      "codegen": [
+        {
+          "plugin": "py",
+          "out": "gen",
+          "options": {
+            "overrides": [
+              {
+                "db_type": "text",
+                "py_type": {
+                  "module": "x",
+                  "type": "Y"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
